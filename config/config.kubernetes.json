@@ -1,6 +1,10 @@
 {
   "DB_HOST": "us-west-2.1dc12fd2-4161-4e46-b889-465dcefbfabb.aws.ybdb.io",
   "DB_PORT": "5433",
+  "DB_NAME": "yugabyte",
+  "DB_USER": "admin",
+  "DB_PASSWORD": "nAJcJGpes48JX9pN40PJpLlKKn7tEV",
+  "DB_CONNECTION_LIMIT": 5000,
   "APP_HOST": "localhost",
   "APP_PORT": "3001"
 }
