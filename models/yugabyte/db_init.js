@@ -1,13 +1,11 @@
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
-
-var pg = require("pg");
+const pg = require("pg");
 const async = require("async");
-const assert = require("assert");
-
 const sample_data = require("../sample_data.json");
+
 const fs = require("fs");
+
 const configPath = "./config.json";
-const certPath = "./rds-ca-2019-us-east-2.pem";
+const certPath = "./root.crt";
 const options = JSON.parse(fs.readFileSync(configPath, "UTF-8"));
 const config = {
   host: options.DB_HOST,
@@ -22,7 +20,6 @@ const config = {
   },
 };
 
-console.log(dbValues);
 let client;
 const connect = async (callbackHandler) => {
   console.log(">>>> Connecting to YugabyteDB!");
@@ -46,7 +43,7 @@ async function createProductsTable(callbackHandler) {
       supplierId int,
       unitStock TEXT,
       unitOrder TEXT,
-      unitPrice DOUBLE,
+      unitPrice int,
       reorderLevel int,
       discontinued boolean,
       quantity int,
@@ -100,7 +97,7 @@ async function createSuppliersTable(callbackHandler) {
 //#endregion
 
 //#region insert dummy data to the database
-function loadProducts() {
+async function loadProducts() {
   const dbValues = sample_data.products.reduce((p, c) => {
     p += `(${c.id}, ${c.categoryId}, ${c.supplierId}, ${c.unitStock}, ${c.unitOrder}, ${c.unitPrice}, ${c.reorderLevel}, ${c.discontinued}, ${c.quantity}, ${c.name}, ${c.description}, ${c.author}, ${c.type}, ${c.img}),`;
     return p;
@@ -108,7 +105,7 @@ function loadProducts() {
   const insert = `INSERT INTO products VALUES ${dbValues}`;
   await client.query(insert)
 }
-function loadCategories() {
+async function loadCategories() {
   const dbValues = sample_data.categories.reduce((p, c) => {
     p += `(${c.id} ${c.name}, ${c.description}),`;
     return p;
@@ -116,7 +113,7 @@ function loadCategories() {
   const insert = `INSERT INTO categories VALUES ${dbValues}`;
   await client.query(insert)
 }
-function loadSuppliers() {
+async function loadSuppliers() {
   const dbValues = sample_data.suppliers.reduce((p, c) => {
     p += `(${c.id}, ${c.name}, ${c.img}),`;
     return p;
