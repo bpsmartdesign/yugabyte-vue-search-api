@@ -1,0 +1,44 @@
+{
+  "name": "yugabyte-search-product",
+  "version": "1.0.0",
+  "description": "API thats allow people to search product using Northwind database.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "supervisor ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bpsmartdesign/yugabyte-vue-search-api.git"
+  },
+  "keywords": [
+    "yugabyte",
+    "nodejs",
+    "northwind",
+    "database",
+    "api"
+  ],
+  "author": "BIYA Paul <bpsmartdesign@hotmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bpsmartdesign/yugabyte-vue-search-api/issues"
+  },
+  "homepage": "https://github.com/bpsmartdesign/yugabyte-vue-search-api#readme",
+  "packageManager": "yarn@3.2.2",
+  "dependencies": {
+    "async": "^3.2.4",
+    "body-parser": "~1.18.2",
+    "cassandra-driver": "^4.6.4",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.15.5",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.0",
+    "pg": "^8.7.3",
+    "react-animate-css": "0.0.1",
+    "redis": "^2.8.0",
+    "serve-favicon": "~2.4.5",
+    "supervisor": "^0.12.0",
+    "underscore": "^1.8.3"
+  }
+}
