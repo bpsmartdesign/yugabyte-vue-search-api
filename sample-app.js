@@ -3,17 +3,18 @@ const async = require("async");
 const fs = require("fs");
 const { callbackify } = require("util");
 const { rows } = require("pg/lib/defaults");
+const certPath = "./root.crt";
 
 const config = {
-  host: "us-west-2.1dc12fd2-4161-4e46-b889-465dcefbfabb.aws.ybdb.io:5433/",
+  host: "us-west-2.1dc12fd2-4161-4e46-b889-465dcefbfabb.aws.ybdb.io",
   port: "5433",
   database: "yugabyte",
   user: "admin",
   password: "nAJcJGpes48JX9pN40PJpLlKKn7tEV",
-  // ssl: {
-  //     rejectUnauthorized: true,
-  //     ca: fs.readFileSync('path_to_your_root_certificate').toString()
-  // },
+  ssl: {
+    rejectUnauthorized: true,
+    ca: fs.readFileSync(certPath),
+  },
   connectionTimeoutMillis: 5000,
 };
 

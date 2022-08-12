@@ -25,6 +25,7 @@ const connect = async (callbackHandler) => {
   console.log(">>>> Connecting to YugabyteDB!");
   try {
     client = new pg.Client(config);
+    console.log("client: ", client);
     await client.connect();
 
     console.log(">>>> Connected to YugabyteDB!");
@@ -52,11 +53,13 @@ async function createProductsTable(callbackHandler) {
       author TEXT,
       type TEXT,
       img TEXT)`;
-  
-    await client.query(create_table);
-    await loadProducts();
 
+    await client.query(create_table);
     console.log(">>>> Successfully created table products.");
+    console.log(">>>> Inserting dummy data to the database.");
+    // await loadProducts();
+    console.log(">>>> Dummy data successfully inserted to the database.");
+
     callbackHandler();
   } catch (err) {
     callbackHandler(err);
@@ -68,7 +71,7 @@ async function createCategoriesTable(callbackHandler) {
       id int PRIMARY KEY,
       name TEXT,
       description TEXT)`;
-  
+
     await client.query(create_table);
     await loadCategories();
 
@@ -84,7 +87,7 @@ async function createSuppliersTable(callbackHandler) {
       id int PRIMARY KEY,
       name TEXT,
       img TEXT)`;
-  
+
     await client.query(create_table);
     await loadSuppliers();
 
@@ -103,7 +106,7 @@ async function loadProducts() {
     return p;
   }, "");
   const insert = `INSERT INTO products VALUES ${dbValues}`;
-  await client.query(insert)
+  await client.query(insert);
 }
 async function loadCategories() {
   const dbValues = sample_data.categories.reduce((p, c) => {
@@ -111,7 +114,7 @@ async function loadCategories() {
     return p;
   }, "");
   const insert = `INSERT INTO categories VALUES ${dbValues}`;
-  await client.query(insert)
+  await client.query(insert);
 }
 async function loadSuppliers() {
   const dbValues = sample_data.suppliers.reduce((p, c) => {
@@ -119,7 +122,7 @@ async function loadSuppliers() {
     return p;
   }, "");
   const insert = `INSERT INTO suppliers VALUES ${dbValues}`;
-  await client.query(insert)
+  await client.query(insert);
 }
 //#endregion
 
